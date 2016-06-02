@@ -12,6 +12,7 @@ class TestPost(TestCase):
         self.user = User.objects.create_user("test_user")
 
     def create_post(self):
+        """ Helper Method to create posts in the other test cases """
         post = Post()
         post.author = self.user
         post.title = "Test Post"
@@ -21,7 +22,7 @@ class TestPost(TestCase):
 
     def test_post_defaults_unpublished(self):
         post = self.create_post()
-        assert post.published_date is None
+        assert not post.is_published()
 
     def test_publish_now(self):
         post = self.create_post()
