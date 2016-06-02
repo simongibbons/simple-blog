@@ -1,14 +1,20 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Contrail+One' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <title>Simple Blog</title>
 </head>
 <body>
-<div class="page-header">
-    <h1>Simple Blog</h1>
-</div>
+<ul class="page-header">
+    <li class="branding"><a href="{% url 'blog:post_list' %}">Simple Blog</a></li>
+    <li class="menu_item"><a href="">log in</a></li>
+    <li class="menu_item"><a href="">new post</a></li>
+    <li class="menu_item"><a href="">drafts</a></li>
+</ul>
 <div class="content container">
     <div class="row">
         <div class="col-md-8">
