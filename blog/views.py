@@ -50,13 +50,37 @@ def post_new(request):
 @login_required()
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    #Only accept post requests on this view
     if request.method == 'POST':
         post.publish()
         return redirect(post)
     else:
+        # Only accept post requests on this view
         return HttpResponse(status=204)
 
+
+@login_required()
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('/')
+    else:
+        return HttpResponse(status=204)
+
+@login_required()
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+        return redirect(post)
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, 'blog/post_new.html', {'form': form})
 
 def post_add_comment(request, pk):
     post = get_object_or_404(Post, pk=pk)

@@ -1,7 +1,7 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<form action="{% url 'blog:post_new' %}" method="POST">
+<form action="{{ request.path }}" method="POST">
     <input type="hidden" name="next" value="{{ next }}" />
     {% csrf_token %}
     {{ form.as_p }}

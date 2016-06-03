@@ -11,6 +11,16 @@
             <input type="submit" value="Publish" />
         </form>
     {% endif %}
+    {% if user.is_authenticated %}
+        <form action="{% url 'blog:post_edit' pk=post.pk %}" method="GET">
+            {% csrf_token %}
+            <input type="submit" value="Edit" />
+        </form>
+        <form action="{% url 'blog:post_delete' pk=post.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Delete" />
+        </form>
+    {% endif %}
     <p>{{ post.text|linebreaks }}</p>
 </div>
 <hr>
