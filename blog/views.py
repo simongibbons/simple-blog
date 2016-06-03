@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
+from django.http import Http404, HttpResponse
 
 from .models import Post
 from .forms import PostForm, CommentForm
@@ -18,7 +18,7 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if not post.is_published() and not request.user.is_authenticated():
         raise Http404('Unauthorized users cannot view unpublished posts')
-        
+
     form = CommentForm()
     return render(request, 'blog/post_detail.html', {'post': post, 'form': form})
 
@@ -46,6 +46,16 @@ def post_new(request):
         form = PostForm()
 
     return render(request, 'blog/post_new.html', {'form': form})
+
+@login_required()
+def post_publish(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    #Only accept post requests on this view
+    if request.method == 'POST':
+        post.publish()
+        return redirect(post)
+    else:
+        return HttpResponse(status=204)
 
 
 def post_add_comment(request, pk):

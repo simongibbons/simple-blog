@@ -4,7 +4,14 @@
 <div class="post">
     <h1><a href="">{{ post.title }}</a></h1>
     <div class="date">
+        {% if post.published_date %}
         <p> Published: {{ post.published_date }} </p>
+        {% else %}
+        <form action="{% url 'blog:post_publish' pk=post.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Publish" />
+        </form>
+        {% endif %}
     </div>
     <p>{{ post.text|linebreaks }}</p>
 </div>
