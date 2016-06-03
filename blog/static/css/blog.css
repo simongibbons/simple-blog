@@ -5,8 +5,8 @@
 
 
 .page-header {
-    padding: 15px;
     margin-top: 0px;
+    padding-top: 10px;
     padding-left: 30px;
     background: #7EBEE0;
 }
@@ -15,15 +15,20 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
-
+    overflow: auto;
+    line-height: 50px;
 }
 
 .page-header li {
     display: inline-block;
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 20px;
     vertical-align: middle;
+    float: right;
+}
+
+.page-header li:first-child {
+    float: left;
 }
 
 .branding a {
@@ -33,16 +38,12 @@
     text-decoration: none;
 }
 
-.menu_item li {
-    float: right;
-    clear: menu_item;
-}
-
 .menu_item a {
     color: #ffffff;
     text-decoration: none;
     font-variant: small-caps;
     font-size: 14pt;
+    float: right;
 }
 
 .date {

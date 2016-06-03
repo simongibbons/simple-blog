@@ -9,12 +9,14 @@
     <title>Simple Blog</title>
 </head>
 <body>
-<ul class="page-header">
+<div class="page-header">
+<ul>
     <li class="branding"><a href="{% url 'blog:post_list' %}">Simple Blog</a></li>
     <li class="menu_item"><a href="">log in</a></li>
     <li class="menu_item"><a href="">new post</a></li>
     <li class="menu_item"><a href="">drafts</a></li>
 </ul>
+</div>
 <div class="content container">
     <div class="row">
         <div class="col-md-8">
