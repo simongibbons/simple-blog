@@ -33,10 +33,7 @@ def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            post = Post()
-            post.title = form.cleaned_data['title']
-            post.text = form.cleaned_data['text']
-            post.creation_date = timezone.now()
+            post = form.save(commit=False)
             post.author = request.user
             post.save()
 
@@ -56,5 +53,4 @@ def post_add_comment(request, pk):
             comment.post = post
             comment.save()
 
-    return post_detail(request, post.pk)
-
+    return redirect(post)
