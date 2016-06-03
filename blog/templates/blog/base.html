@@ -14,7 +14,7 @@
     <li class="branding"><a href="{% url 'blog:post_list' %}">Simple Blog</a></li>
     {% if user.is_authenticated %}
         <li class="menu_item"><a href="{% url 'logout' %}">log out</a></li>
-        <li class="menu_item"><a href="">new post</a></li>
+        <li class="menu_item"><a href="{% url 'blog:post_new' %}">new post</a></li>
         <li class="menu_item"><a href="{% url 'blog:post_drafts' %}">drafts</a></li>
     {% else %}
         <li class="menu_item"><a href="{% url 'login' %}">log in</a></li>

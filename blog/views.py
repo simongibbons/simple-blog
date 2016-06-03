@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
 from .models import Post
+from .forms import PostForm
 
 
 def post_list(request):
@@ -23,4 +25,23 @@ def post_drafts(request):
         filter(published_date__isnull=True).\
         order_by('creation_date')
 
-    return render(request, 'blog/post_list.html', {'posts' : posts})
+    return render(request, 'blog/post_list.html', {'posts': posts})
+
+
+@login_required()
+def post_new(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = Post()
+            post.title = form.cleaned_data['title']
+            post.text = form.cleaned_data['text']
+            post.creation_date = timezone.now()
+            post.author = request.user
+            post.save()
+
+            return redirect(reverse('blog:post_detail', args=[post.pk]))
+    else:
+        form = PostForm()
+
+    return render(request, 'blog/post_new.html', {'form': form})
