@@ -47,6 +47,7 @@ def post_new(request):
 
     return render(request, 'blog/post_new.html', {'form': form})
 
+
 @login_required()
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -68,6 +69,7 @@ def post_delete(request, pk):
     else:
         return HttpResponse(status=204)
 
+
 @login_required()
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -81,6 +83,7 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
 
     return render(request, 'blog/post_new.html', {'form': form})
+
 
 def post_add_comment(request, pk):
     post = get_object_or_404(Post, pk=pk)
