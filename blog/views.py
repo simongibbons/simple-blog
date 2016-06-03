@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
 
 from .models import Post
 from .forms import PostForm
@@ -40,7 +39,7 @@ def post_new(request):
             post.author = request.user
             post.save()
 
-            return redirect(reverse('blog:post_detail', args=[post.pk]))
+            return redirect(post)
     else:
         form = PostForm()
 

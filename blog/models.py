@@ -32,5 +32,9 @@ class Post(models.Model):
         """ Is the post displayable? """
         return self.is_published() and self.published_date <= timezone.now()
 
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('blog:post_detail', args=[self.pk])
+
     def __str__(self):
         return self.title
