@@ -8,4 +8,25 @@
     </div>
     <p>{{ post.text|linebreaks }}</p>
 </div>
+<hr>
+<div class="comments">
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <div class="date">{{ comment.created_date }}</div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaks }}</p>
+        </div>
+    {% empty %}
+        No Comments Yet.
+    {% endfor %}
+</div>
+
+<div class="comment_form">
+    <form action="{% url 'blog:post_add_comment' pk=post.pk %}" method="POST">
+    <input type="hidden" name="next" />
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Comment" />
+</form>
+</div>
 {% endblock %}
